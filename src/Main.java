@@ -1,7 +1,9 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
 
         // Создание сканнера для прочтение данных, что вводит пользователь
         Scanner scanner = new Scanner(System.in);
@@ -9,17 +11,21 @@ public class Main {
         // Читаем введенные данные
         System.out.println("Название:");
         String title = scanner.nextLine();
-
         System.out.println("Тип:");
         String type = scanner.nextLine();
-
         System.out.println("Рейтинг:");
         int rating = scanner.nextInt();
+        scanner.nextLine();
 
-        // Создаем класс для вывода данных
-        Item items = new Item(title, type, rating);
+        ItemService service = new ItemService();
+        Item item = new Item(title, type, rating);
+        service.addItem(item);
 
-        // Вывод данных
-        System.out.printf("Title: %s, Type: %s, Rating: %d%n", items.getTitle(), items.getType(), items.getRating());
+        List<Item> allItems = service.getAllItems();
+        for (Item currentItem : allItems) {
+            System.out.printf("Title: %s, Type: %s, Rating: %d%n",
+                    currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
+            );
+        }
     }
 }
