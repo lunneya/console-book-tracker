@@ -4,28 +4,104 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-
-        // Создание сканнера для прочтение данных, что вводит пользователь
+        // Создание scanner для прочтения данных, что вводит пользователь
         Scanner scanner = new Scanner(System.in);
-
-        // Читаем введенные данные
-        System.out.println("Название:");
-        String title = scanner.nextLine();
-        System.out.println("Тип:");
-        String type = scanner.nextLine();
-        System.out.println("Рейтинг:");
-        int rating = scanner.nextInt();
-        scanner.nextLine();
-
+        // Создание объекта, который хранит список Item из ItemService.java
         ItemService service = new ItemService();
-        Item item = new Item(title, type, rating);
-        service.addItem(item);
+        // Временные данные для тестов
+        Item item1 = new Item("Наруто", "Манга", 9);
+        Item item2 = new Item("Волчица и пряности", "Манга", 10);
+        Item item3 = new Item("Преступление и наказание", "Книга", 8);
+        // Добавление itemN в service
+        service.addItem(item1);
+        service.addItem(item2);
+        service.addItem(item3);
 
-        List<Item> allItems = service.getAllItems();
-        for (Item currentItem : allItems) {
-            System.out.printf("Title: %s, Type: %s, Rating: %d%n",
-                    currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
-            );
+        while (true) {
+            System.out.println("\n1. Добавить");
+            System.out.println("2. Показать все");
+            System.out.println("3. Поиск");
+            System.out.println("0. Выход");
+            System.out.print("Выбор: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    // Читаем введенные данные
+                    System.out.println("Название:");
+                    String title = scanner.nextLine();
+
+                    System.out.println("Тип:");
+                    String type = scanner.nextLine();
+
+                    // Проверка через цикл на диапазон
+                    int rating;
+                    while (true) {
+                        System.out.println("Рейтинг (1-10):");
+                        rating = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (rating >= 1 && rating <= 10) {
+                            break;
+                        } else {
+                            System.out.println("Число должно быть от 1 до 10");
+                        }
+                    }
+
+                    // Создание объекта Item, беру введенные данные и создаю одну запись
+                    Item item = new Item(title, type, rating);
+                    // Вызываю метод и кладу item в список
+                    service.addItem(item);
+                    System.out.println("Запись добавлена");
+                    break;
+
+                case 2:
+                    // Получаю список, причем копию
+                    List<Item> allItems = service.getAllItems();
+
+                    // Для каждого элемента списка allItems, беру Item и кладу в currentItem, вывожу через геттеры
+                    for (Item currentItem : allItems) {
+                        System.out.printf("Название: %s, Тип: %s, Рейтинг: %d%n",
+                                currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
+                        );
+                    }
+                    break;
+
+                case 3:
+                    // ЗАПУСКАЕТСЯ БЕСКОНЕЧНЫЙ ЦИКЛ
+                    while (true) {
+                        System.out.println("\n1. По названию");
+                        System.out.println("2. По типу");
+                        System.out.println("3. По рейтингу");
+                        System.out.println("0. Выход");
+                        System.out.print("Выбор: ");
+
+                        switch (choice) {
+                            case 1:
+                                System.out.println("-");
+                                break;
+                            case 2:
+                                System.out.println("-");
+                                break;
+                            case 3:
+                                System.out.println("-");
+                                break;
+                            case 0:
+                                System.out.println("Выход...");
+                                return;
+                        }
+                    }
+
+
+                case 0:
+                    System.out.println("Выход...");
+                    return;
+
+                default:
+                    System.out.println("Неверный выбор");
+            }
         }
     }
 }
