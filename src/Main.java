@@ -70,15 +70,18 @@ public class Main {
                     break;
 
                 case 3:
-                    // ЗАПУСКАЕТСЯ БЕСКОНЕЧНЫЙ ЦИКЛ
-                    while (true) {
+                    boolean searchMenuRunning = true;
+                    while (searchMenuRunning) {
                         System.out.println("\n1. По названию");
                         System.out.println("2. По типу");
                         System.out.println("3. По рейтингу");
-                        System.out.println("0. Выход");
+                        System.out.println("0. Вернутся в меню");
                         System.out.print("Выбор: ");
 
-                        switch (choice) {
+                        int searchMenuChoice = scanner.nextInt();
+                        scanner.nextLine();
+
+                        switch (searchMenuChoice) {
                             case 1:
                                 System.out.println("-");
                                 break;
@@ -90,9 +93,14 @@ public class Main {
                                 break;
                             case 0:
                                 System.out.println("Выход...");
-                                return;
+                                searchMenuRunning = false;
+                                System.out.print(searchMenuRunning);
+                                break;
+                            default:
+                                System.out.println("Неверный выбор");
                         }
                     }
+                    break;
 
 
                 case 0:
