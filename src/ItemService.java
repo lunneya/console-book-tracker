@@ -19,6 +19,18 @@ public class ItemService {
                 foundItems.add(item);
             }
         }
+
+        return foundItems;
+    }
+
+    public List<Item> findByType(String searchType) {
+        List<Item> foundItems = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getType().equalsIgnoreCase(searchType)) {
+                foundItems.add(item);
+            }
+        }
+
         return foundItems;
     }
 }

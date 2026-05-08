@@ -8,11 +8,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         // Создание объекта, который хранит список Item из ItemService.java
         ItemService service = new ItemService();
+
         // Временные данные для тестов
         Item item1 = new Item("Наруто", "Манга", 9);
         Item item2 = new Item("Волчица и пряности", "Манга", 10);
         Item item3 = new Item("Преступление и наказание", "Книга", 8);
-        // Добавление itemN в service
+        // Добавление item в service
         service.addItem(item1);
         service.addItem(item2);
         service.addItem(item3);
@@ -62,11 +63,7 @@ public class Main {
                     List<Item> allItems = service.getAllItems();
 
                     // Для каждого элемента списка allItems, беру Item и кладу в currentItem, вывожу через геттеры
-                    for (Item currentItem : allItems) {
-                        System.out.printf("Название: %s, Тип: %s, Рейтинг: %d%n",
-                                currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
-                        );
-                    }
+                    printItems(allItems);
                     break;
 
                 case 3:
@@ -86,27 +83,36 @@ public class Main {
                                 System.out.println("Введите название:");
                                 String searchTitle = scanner.nextLine();
 
-                                List<Item> foundItems = service.findByTitle(searchTitle);
-                                if (foundItems.isEmpty()) {
-                                    System.out.println("Список пустой");
+                                List<Item> foundByTitle = service.findByTitle(searchTitle);
+                                if (foundByTitle.isEmpty()) {
+                                    System.out.println("Совпадений не найдено");
                                 } else {
-                                    System.out.println("В списке есть:");
-                                    for (Item currentItem : foundItems) {
-                                        System.out.println(currentItem.getTitle());
-                                    }
+                                    printItems(foundByTitle);
                                 }
+                                break;
 
-                                break;
                             case 2:
-                                System.out.println("-");
+                                System.out.println("Введите тип:");
+                                String searchType = scanner.nextLine();
+
+                                List<Item> foundByType = service.findByType(searchType);
+
+                                if (foundByType.isEmpty()) {
+                                    System.out.println("Совпадений не найдено");
+                                } else {
+                                    printItems(foundByType);
+                                }
                                 break;
+
                             case 3:
                                 System.out.println("-");
                                 break;
+
                             case 0:
                                 System.out.println("Выход...");
                                 searchMenuRunning = false;
                                 break;
+
                             default:
                                 System.out.println("Неверный выбор");
                         }
@@ -121,6 +127,16 @@ public class Main {
                 default:
                     System.out.println("Неверный выбор");
             }
+        }
+    }
+
+    // Создание метода для вывода на печать данных
+    // Для каждого элемента списка items, беру Item и кладу в currentItem, вывожу через геттеры
+    public static void printItems(List<Item> items) {
+        for (Item currentItem : items) {
+            System.out.printf("Название: %s, Тип: %s, Рейтинг: %d%n",
+                    currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
+            );
         }
     }
 }
