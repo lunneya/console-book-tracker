@@ -76,14 +76,26 @@ public class Main {
                         System.out.println("2. По типу");
                         System.out.println("3. По рейтингу");
                         System.out.println("0. Вернутся в меню");
-                        System.out.print("Выбор: ");
+                        System.out.print("Выбор: \n");
 
                         int searchMenuChoice = scanner.nextInt();
                         scanner.nextLine();
 
                         switch (searchMenuChoice) {
                             case 1:
-                                System.out.println("-");
+                                System.out.println("Введите название:");
+                                String searchTitle = scanner.nextLine();
+
+                                List<Item> foundItems = service.findByTitle(searchTitle);
+                                if (foundItems.isEmpty()) {
+                                    System.out.println("Список пустой");
+                                } else {
+                                    System.out.println("В списке есть:");
+                                    for (Item currentItem : foundItems) {
+                                        System.out.println(currentItem.getTitle());
+                                    }
+                                }
+
                                 break;
                             case 2:
                                 System.out.println("-");
@@ -94,7 +106,6 @@ public class Main {
                             case 0:
                                 System.out.println("Выход...");
                                 searchMenuRunning = false;
-                                System.out.print(searchMenuRunning);
                                 break;
                             default:
                                 System.out.println("Неверный выбор");
