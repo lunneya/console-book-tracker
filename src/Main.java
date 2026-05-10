@@ -105,7 +105,16 @@ public class Main {
                                 break;
 
                             case 3:
-                                System.out.println("-");
+                                System.out.println("Введите рейтинг (от 1 до 10)");
+                                int searchRating = scanner.nextInt();
+                                scanner.nextLine();
+
+                                List<Item> foundByRating = service.findByRating(searchRating);
+                                if (foundByRating.isEmpty()) {
+                                    System.out.println("Совпадений не найдено");
+                                } else {
+                                  printItems(foundByRating);
+                                }
                                 break;
 
                             case 0:
