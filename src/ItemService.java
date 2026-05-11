@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class ItemService {
     private int nextId = 1;
@@ -10,13 +8,29 @@ public class ItemService {
     void addItem(String title, String type, int rating) {
         Item item = new Item(nextId, title, type, rating);
         items.add(item);
-//        System.out.println(nextId);
         nextId++;
     }
 
-    int targetId = 2;
-    void deleteItem(Item item) {
+    void deleteItem(int id) {
+        boolean found = false;
 
+        for (int i = 0; i < items.size(); i++) {
+
+            Item currentItem = items.get(i);
+
+            if (currentItem.getId() == id) {
+                items.remove(i);
+
+                found = true;
+
+                System.out.println("Удалено");
+
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("ID не найден");
+        }
     }
 
     public List<Item> getAllItems() {

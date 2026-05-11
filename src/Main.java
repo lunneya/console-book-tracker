@@ -17,8 +17,9 @@ public class Main {
 
         while (true) {
             System.out.println("\n1. Добавить");
-            System.out.println("2. Показать все");
-            System.out.println("3. Поиск");
+            System.out.println("2. Удалить");
+            System.out.println("3. Показать все");
+            System.out.println("4. Поиск");
             System.out.println("0. Выход");
             System.out.print("Выбор: ");
 
@@ -53,6 +54,13 @@ public class Main {
                     break;
 
                 case 2:
+                    System.out.println("Введите ID для удаления");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    service.deleteItem(id);
+
+                case 3:
                     // Получаю список, причем копию
                     List<Item> allItems = service.getAllItems();
 
@@ -60,7 +68,7 @@ public class Main {
                     printItems(allItems);
                     break;
 
-                case 3:
+                case 4:
                     boolean searchMenuRunning = true;
                     while (searchMenuRunning) {
                         System.out.println("\n1. По названию");
@@ -121,7 +129,6 @@ public class Main {
                         }
                     }
                     break;
-
 
                 case 0:
                     System.out.println("Выход...");
