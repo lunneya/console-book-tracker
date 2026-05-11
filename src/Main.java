@@ -10,13 +10,10 @@ public class Main {
         ItemService service = new ItemService();
 
         // Временные данные для тестов
-        Item item1 = new Item("Наруто", "Манга", 9);
-        Item item2 = new Item("Волчица и пряности", "Манга", 10);
-        Item item3 = new Item("Преступление и наказание", "Книга", 8);
         // Добавление item в service
-        service.addItem(item1);
-        service.addItem(item2);
-        service.addItem(item3);
+        service.addItem("Наруто", "Манга", 9);
+        service.addItem("Волчица и пряности", "Манга", 10);
+        service.addItem("Преступление и наказание", "Книга", 8);
 
         while (true) {
             System.out.println("\n1. Добавить");
@@ -51,10 +48,7 @@ public class Main {
                         }
                     }
 
-                    // Создание объекта Item, беру введенные данные и создаю одну запись
-                    Item item = new Item(title, type, rating);
-                    // Вызываю метод и кладу item в список
-                    service.addItem(item);
+                    service.addItem(title, type, rating);
                     System.out.println("Запись добавлена");
                     break;
 
@@ -143,8 +137,8 @@ public class Main {
     // Для каждого элемента списка items, беру Item и кладу в currentItem, вывожу через геттеры
     public static void printItems(List<Item> items) {
         for (Item currentItem : items) {
-            System.out.printf("Название: %s, Тип: %s, Рейтинг: %d%n",
-                    currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
+            System.out.printf("Id: %d%n, Название: %s, Тип: %s, Рейтинг: %d%n",
+                    currentItem.getId(), currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
             );
         }
     }

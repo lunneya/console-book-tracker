@@ -1,11 +1,22 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ItemService {
+    private int nextId = 1;
     private List<Item> items = new ArrayList<>();
 
-    void addItem(Item item) {
+    void addItem(String title, String type, int rating) {
+        Item item = new Item(nextId, title, type, rating);
         items.add(item);
+//        System.out.println(nextId);
+        nextId++;
+    }
+
+    int targetId = 2;
+    void deleteItem(Item item) {
+
     }
 
     public List<Item> getAllItems() {
