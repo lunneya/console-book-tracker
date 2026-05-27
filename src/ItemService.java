@@ -33,6 +33,19 @@ public class ItemService {
         }
     }
 
+    public boolean updateItem(int id, String title, String type, int rating) {
+        for (int i = 0; i < items.size(); i++) {
+
+            Item currentItem = items.get(i);
+
+            if (currentItem.getId() == id) {
+                currentItem.setId(id);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Item> getAllItems() {
         return new ArrayList<>(items);
     }
