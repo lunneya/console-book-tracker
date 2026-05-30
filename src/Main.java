@@ -16,12 +16,13 @@ public class Main {
         service.addItem("Преступление и наказание", "Книга", 8);
 
         while (true) {
-            System.out.println("\n1. Добавить");
-            System.out.println("2. Удалить");
-            System.out.println("3. Показать все");
-            System.out.println("4. Поиск");
-            System.out.println("0. Выход");
-            System.out.print("Выбор: ");
+            System.out.println("\n1. Добавить запись");
+            System.out.println("2. Удалить запись");
+            System.out.println("3. Редактировать запись");
+            System.out.println("4. Показать все записи");
+            System.out.println("5. Поиск записи");
+            System.out.println("0. Выход из программы");
+            System.out.print("Выбор действия: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -59,8 +60,32 @@ public class Main {
                     scanner.nextLine();
 
                     service.deleteItem(id);
+                    break;
 
                 case 3:
+                    System.out.println("Введите ID записи для ее редактирования:");
+                    id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.println("Введите новое название:");
+                    String newTitle = scanner.nextLine();
+
+                    System.out.println("Введите новый тип:");
+                    String newType = scanner.nextLine();
+
+                    System.out.println("Введите новый рейтинг:");
+                    int newRating = scanner.nextInt();
+                    scanner.nextLine();
+
+                    boolean updated = service.updateItem(id, newTitle, newType, newRating);
+
+                    if (updated) {
+                        System.out.println("Запись обновлена");
+                    } else {
+                        System.out.println("ID не найден");
+                    }
+
+                case 4:
                     // Получаю список, причем копию
                     List<Item> allItems = service.getAllItems();
 
@@ -68,7 +93,7 @@ public class Main {
                     printItems(allItems);
                     break;
 
-                case 4:
+                case 5:
                     boolean searchMenuRunning = true;
                     while (searchMenuRunning) {
                         System.out.println("\n1. По названию");

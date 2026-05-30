@@ -34,12 +34,13 @@ public class ItemService {
     }
 
     public boolean updateItem(int id, String title, String type, int rating) {
-        for (int i = 0; i < items.size(); i++) {
-
-            Item currentItem = items.get(i);
+        for (Item currentItem : items) {
 
             if (currentItem.getId() == id) {
-                currentItem.setId(id);
+                currentItem.setTitle(title);
+                currentItem.setType(type);
+                currentItem.setRating(rating);
+
                 return true;
             }
         }
