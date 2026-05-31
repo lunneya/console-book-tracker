@@ -16,13 +16,13 @@ public class Main {
         service.addItem("Преступление и наказание", "Книга", 8);
 
         while (true) {
-            System.out.println("\n1. Добавить запись");
+            System.out.println("\n\n1. Добавить запись");
             System.out.println("2. Удалить запись");
             System.out.println("3. Редактировать запись");
             System.out.println("4. Показать все записи");
             System.out.println("5. Поиск записи");
             System.out.println("0. Выход из программы");
-            System.out.print("Выбор действия: ");
+            System.out.print("\nВыбор действия: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -55,11 +55,18 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.println("Введите ID для удаления");
+                    System.out.println("Введите ID для удаления записи");
                     int id = scanner.nextInt();
                     scanner.nextLine();
 
-                    service.deleteItem(id);
+                    Item foundItem = service.findById(id);
+
+                    if (foundItem != null) {
+                        System.out.printf("Удалена запись: %s", foundItem.getTitle());
+                        service.deleteItem(id);
+                    } else {
+                        System.out.println("Запись не найдена");
+                    }
                     break;
 
                 case 3:
@@ -169,7 +176,7 @@ public class Main {
     // Для каждого элемента списка items, беру Item и кладу в currentItem, вывожу через геттеры
     public static void printItems(List<Item> items) {
         for (Item currentItem : items) {
-            System.out.printf("Id: %d%n, Название: %s, Тип: %s, Рейтинг: %d%n",
+            System.out.printf("[%d] | %s | %s | %d%n",
                     currentItem.getId(), currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
             );
         }

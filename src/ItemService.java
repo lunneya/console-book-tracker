@@ -23,8 +23,6 @@ public class ItemService {
 
                 found = true;
 
-                System.out.println("Удалено");
-
                 break;
             }
         }
@@ -49,6 +47,15 @@ public class ItemService {
 
     public List<Item> getAllItems() {
         return new ArrayList<>(items);
+    }
+
+    public Item findById(int searchId) {
+        for (Item item : items) {
+            if (item.getId() == searchId) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public List<Item> findByTitle(String searchTitle) {
