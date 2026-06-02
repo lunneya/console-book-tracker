@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ItemService {
@@ -43,6 +44,12 @@ public class ItemService {
             }
         }
         return false;
+    }
+
+    public List<Item> sortByRating() {
+        List<Item> sortedList = new ArrayList<>(items);
+        sortedList.sort(Comparator.comparing(Item::getRating));
+        return sortedList;
     }
 
     public List<Item> getAllItems() {

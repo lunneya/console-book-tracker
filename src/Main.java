@@ -19,8 +19,9 @@ public class Main {
             System.out.println("\n\n1. Добавить запись");
             System.out.println("2. Удалить запись");
             System.out.println("3. Редактировать запись");
-            System.out.println("4. Показать все записи");
-            System.out.println("5. Поиск записи");
+            System.out.println("4. Сортировать записи");
+            System.out.println("5. Показать все записи");
+            System.out.println("6. Поиск записи");
             System.out.println("0. Выход из программы");
             System.out.print("\nВыбор действия: ");
 
@@ -93,6 +94,11 @@ public class Main {
                     }
 
                 case 4:
+                    List<Item> sortedItems = service.sortByRating();
+                    printItems(sortedItems);
+                    break;
+
+                case 5:
                     // Получаю список, причем копию
                     List<Item> allItems = service.getAllItems();
 
@@ -100,7 +106,7 @@ public class Main {
                     printItems(allItems);
                     break;
 
-                case 5:
+                case 6:
                     boolean searchMenuRunning = true;
                     while (searchMenuRunning) {
                         System.out.println("\n1. По названию");
