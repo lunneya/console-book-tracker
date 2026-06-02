@@ -7,22 +7,21 @@ public class Main {
         // Создание scanner для прочтения данных, что вводит пользователь
         Scanner scanner = new Scanner(System.in);
         // Создание объекта, который хранит список Item из ItemService.java
-        ItemService service = new ItemService();
+        RepertoireService service = new RepertoireService();
 
         // Временные данные для тестов
         // Добавление item в service
-        service.addItem("Наруто", "Манга", 9);
-        service.addItem("Волчица и пряности", "Манга", 10);
-        service.addItem("Преступление и наказание", "Книга", 8);
+        service.addItem("Bilewater","Christopher Larkin", "GAME_SOUNDTRACK", 10);
 
         while (true) {
-            System.out.println("\n\n1. Добавить запись");
-            System.out.println("2. Удалить запись");
-            System.out.println("3. Редактировать запись");
-            System.out.println("4. Сортировать записи");
-            System.out.println("5. Показать все записи");
-            System.out.println("6. Поиск записи");
-            System.out.println("0. Выход из программы");
+            System.out.println("\n\n=== Репертуар музыканта ===\n");
+            System.out.println("1. Добавить произведение");
+            System.out.println("2. Удалить произведение");
+            System.out.println("3. Редактировать произведение");
+            System.out.println("4. Сортировать произведения");
+            System.out.println("5. Показать репертуар");
+            System.out.println("6. Поиск произведения");
+            System.out.println("0. Выход");
             System.out.print("\nВыбор действия: ");
 
             int choice = scanner.nextInt();
@@ -33,6 +32,9 @@ public class Main {
                     // Читаем введенные данные
                     System.out.println("Название:");
                     String title = scanner.nextLine();
+
+                    System.out.println("Композитор:");
+                    String composer = scanner.nextLine();
 
                     System.out.println("Тип:");
                     String type = scanner.nextLine();
@@ -51,7 +53,7 @@ public class Main {
                         }
                     }
 
-                    service.addItem(title, type, rating);
+                    service.addItem(title, composer, type, rating);
                     System.out.println("Запись добавлена");
                     break;
 
@@ -60,7 +62,7 @@ public class Main {
                     int id = scanner.nextInt();
                     scanner.nextLine();
 
-                    Item foundItem = service.findById(id);
+                    RepertoireItem foundItem = service.findById(id);
 
                     if (foundItem != null) {
                         System.out.printf("Удалена запись: %s", foundItem.getTitle());
@@ -78,6 +80,9 @@ public class Main {
                     System.out.println("Введите новое название:");
                     String newTitle = scanner.nextLine();
 
+                    System.out.println("Введите нового композитора:");
+                    String newComposer = scanner.nextLine();
+
                     System.out.println("Введите новый тип:");
                     String newType = scanner.nextLine();
 
@@ -85,33 +90,35 @@ public class Main {
                     int newRating = scanner.nextInt();
                     scanner.nextLine();
 
-                    boolean updated = service.updateItem(id, newTitle, newType, newRating);
+                    boolean updated = service.updateItem(id, newTitle, newComposer, newType, newRating);
 
                     if (updated) {
                         System.out.println("Запись обновлена");
                     } else {
                         System.out.println("ID не найден");
                     }
+                    break;
 
                 case 4:
-                    List<Item> sortedItems = service.sortByRating();
+                    List<RepertoireItem> sortedItems = service.sortByRating();
                     printItems(sortedItems);
                     break;
 
                 case 5:
                     // Получаю список, причем копию
-                    List<Item> allItems = service.getAllItems();
+                    List<RepertoireItem> allRepertoireItems = service.getAllItems();
 
                     // Для каждого элемента списка allItems, беру Item и кладу в currentItem, вывожу через геттеры
-                    printItems(allItems);
+                    printItems(allRepertoireItems);
                     break;
 
                 case 6:
                     boolean searchMenuRunning = true;
                     while (searchMenuRunning) {
                         System.out.println("\n1. По названию");
-                        System.out.println("2. По типу");
-                        System.out.println("3. По рейтингу");
+                        System.out.println("2. По композитору");
+                        System.out.println("3. По типу");
+                        System.out.println("4. По рейтингу");
                         System.out.println("0. Вернутся в меню");
                         System.out.print("Выбор: \n");
 
@@ -123,7 +130,7 @@ public class Main {
                                 System.out.println("Введите название:");
                                 String searchTitle = scanner.nextLine();
 
-                                List<Item> foundByTitle = service.findByTitle(searchTitle);
+                                List<RepertoireItem> foundByTitle = service.findByTitle(searchTitle);
                                 if (foundByTitle.isEmpty()) {
                                     System.out.println("Совпадений не найдено");
                                 } else {
@@ -132,10 +139,22 @@ public class Main {
                                 break;
 
                             case 2:
+                                System.out.println("Введите композитора:");
+                                String searchComposer = scanner.nextLine();
+
+                                List<RepertoireItem> foundByComposer = service.findByComposer(searchComposer);
+                                if (foundByComposer.isEmpty()) {
+                                    System.out.println("Совпадений не найдено");
+                                } else {
+                                    printItems(foundByComposer);
+                                }
+                                break;
+
+                            case 3:
                                 System.out.println("Введите тип:");
                                 String searchType = scanner.nextLine();
 
-                                List<Item> foundByType = service.findByType(searchType);
+                                List<RepertoireItem> foundByType = service.findByType(searchType);
 
                                 if (foundByType.isEmpty()) {
                                     System.out.println("Совпадений не найдено");
@@ -144,12 +163,12 @@ public class Main {
                                 }
                                 break;
 
-                            case 3:
+                            case 4:
                                 System.out.println("Введите рейтинг (от 1 до 10)");
                                 int searchRating = scanner.nextInt();
                                 scanner.nextLine();
 
-                                List<Item> foundByRating = service.findByRating(searchRating);
+                                List<RepertoireItem> foundByRating = service.findByRating(searchRating);
                                 if (foundByRating.isEmpty()) {
                                     System.out.println("Совпадений не найдено");
                                 } else {
@@ -180,10 +199,10 @@ public class Main {
 
     // Создание метода для вывода на печать данных
     // Для каждого элемента списка items, беру Item и кладу в currentItem, вывожу через геттеры
-    public static void printItems(List<Item> items) {
-        for (Item currentItem : items) {
-            System.out.printf("[%d] | %s | %s | %d%n",
-                    currentItem.getId(), currentItem.getTitle(), currentItem.getType(), currentItem.getRating()
+    public static void printItems(List<RepertoireItem> items) {
+        for (RepertoireItem currentItem : items) {
+            System.out.printf("[%d] | %s | %s | %s | %d%n",
+                    currentItem.getId(), currentItem.getTitle(), currentItem.getComposer(), currentItem.getType(), currentItem.getRating()
             );
         }
     }
