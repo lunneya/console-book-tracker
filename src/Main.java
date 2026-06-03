@@ -11,7 +11,7 @@ public class Main {
 
         // Временные данные для тестов
         // Добавление item в service
-        service.addItem("Bilewater","Christopher Larkin", "GAME_SOUNDTRACK", 10);
+        service.addItem("Bilewater","Christopher Larkin", "Piano", "GAME_SOUNDTRACK", 10);
 
         while (true) {
             System.out.println("\n\n=== Репертуар музыканта ===\n");
@@ -36,6 +36,9 @@ public class Main {
                     System.out.println("Композитор:");
                     String composer = scanner.nextLine();
 
+                    System.out.println("Инструмент:");
+                    String instrument = scanner.nextLine();
+
                     System.out.println("Тип:");
                     String type = scanner.nextLine();
 
@@ -53,7 +56,7 @@ public class Main {
                         }
                     }
 
-                    service.addItem(title, composer, type, rating);
+                    service.addItem(title, composer, instrument, type, rating);
                     System.out.println("Запись добавлена");
                     break;
 
@@ -201,8 +204,13 @@ public class Main {
     // Для каждого элемента списка items, беру Item и кладу в currentItem, вывожу через геттеры
     public static void printItems(List<RepertoireItem> items) {
         for (RepertoireItem currentItem : items) {
-            System.out.printf("[%d] | %s | %s | %s | %d%n",
-                    currentItem.getId(), currentItem.getTitle(), currentItem.getComposer(), currentItem.getType(), currentItem.getRating()
+            System.out.printf("[%d] | %s | %s | %s | %s | %d%n",
+                    currentItem.getId(),
+                    currentItem.getTitle(),
+                    currentItem.getComposer(),
+                    currentItem.getInstrument(),
+                    currentItem.getType(),
+                    currentItem.getRating()
             );
         }
     }

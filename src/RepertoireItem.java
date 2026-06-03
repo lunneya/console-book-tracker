@@ -2,6 +2,7 @@ public class RepertoireItem {
     private int id;
     private String title;
     private String composer;
+    private String instrument;
     private String type;
     private int rating;
 
@@ -13,6 +14,9 @@ public class RepertoireItem {
     }
     public String getComposer() {
         return composer;
+    }
+    public String getInstrument() {
+        return instrument;
     }
     public String getType() {
         return type;
@@ -35,10 +39,11 @@ public class RepertoireItem {
     }
 
     // Конструктор
-    public RepertoireItem(int id, String title, String composer, String type, int rating) {
+    public RepertoireItem(int id, String title, String composer, String instrument, String type, int rating) {
         this.id = id;
         this.title = title;
         this.composer = composer;
+        this.instrument = instrument;
         this.type = type;
         this.rating = rating;
     }

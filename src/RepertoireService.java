@@ -6,8 +6,8 @@ public class RepertoireService {
     private int nextId = 1;
     private List<RepertoireItem> items = new ArrayList<>();
 
-    void addItem(String title, String composer, String type, int rating) {
-        RepertoireItem item = new RepertoireItem(nextId, title, composer, type, rating);
+    void addItem(String title, String composer, String instrument, String type, int rating) {
+        RepertoireItem item = new RepertoireItem(nextId, title, composer, instrument, type, rating);
         items.add(item);
         nextId++;
     }
