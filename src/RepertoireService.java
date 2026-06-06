@@ -17,9 +17,9 @@ public class RepertoireService {
 
         for (int i = 0; i < items.size(); i++) {
 
-            RepertoireItem RepertoireItem = items.get(i);
+            RepertoireItem item = items.get(i);
 
-            if (RepertoireItem.getId() == id) {
+            if (item.getId() == id) {
                 items.remove(i);
 
                 found = true;
@@ -32,14 +32,15 @@ public class RepertoireService {
         }
     }
 
-    public boolean updateItem(int id, String title, String composer, String type, int rating) {
-        for (RepertoireItem RepertoireItem : items) {
+    public boolean updateItem(int id, String title, String composer, String instrument, String type, int rating) {
+        for (RepertoireItem item : items) {
 
-            if (RepertoireItem.getId() == id) {
-                RepertoireItem.setTitle(title);
-                RepertoireItem.setComposer(composer);
-                RepertoireItem.setType(type);
-                RepertoireItem.setRating(rating);
+            if (item.getId() == id) {
+                item.setTitle(title);
+                item.setComposer(composer);
+                item.setInstrument(instrument);
+                item.setType(type);
+                item.setRating(rating);
 
                 return true;
             }
@@ -80,6 +81,16 @@ public class RepertoireService {
         List<RepertoireItem> foundItems = new ArrayList<>();
         for (RepertoireItem item : items) {
             if (item.getComposer().toLowerCase().contains(searchComposer.toLowerCase())) {
+                foundItems.add(item);
+            }
+        }
+        return foundItems;
+    }
+
+    public List<RepertoireItem> findByInstrument(String searchInstrument) {
+        List<RepertoireItem> foundItems = new ArrayList<>();
+        for (RepertoireItem item : items) {
+            if (item.getInstrument().toLowerCase().contains(searchInstrument.toLowerCase())) {
                 foundItems.add(item);
             }
         }

@@ -13,6 +13,10 @@ public class Main {
         // Добавление item в service
         service.addItem("Bilewater","Christopher Larkin", "Piano", "GAME_SOUNDTRACK", 10);
 
+        // Тестовый вызов метода для сохранения
+        FileService fileService = new FileService();
+        fileService.saveTest();
+
         while (true) {
             System.out.println("\n\n=== Репертуар музыканта ===\n");
             System.out.println("1. Добавить произведение");
@@ -86,6 +90,9 @@ public class Main {
                     System.out.println("Введите нового композитора:");
                     String newComposer = scanner.nextLine();
 
+                    System.out.println("Введите новый инструмент:");
+                    String newInstrument = scanner.nextLine();
+
                     System.out.println("Введите новый тип:");
                     String newType = scanner.nextLine();
 
@@ -93,7 +100,7 @@ public class Main {
                     int newRating = scanner.nextInt();
                     scanner.nextLine();
 
-                    boolean updated = service.updateItem(id, newTitle, newComposer, newType, newRating);
+                    boolean updated = service.updateItem(id, newTitle, newComposer, newInstrument, newType, newRating);
 
                     if (updated) {
                         System.out.println("Запись обновлена");
@@ -120,8 +127,9 @@ public class Main {
                     while (searchMenuRunning) {
                         System.out.println("\n1. По названию");
                         System.out.println("2. По композитору");
-                        System.out.println("3. По типу");
-                        System.out.println("4. По рейтингу");
+                        System.out.println("3. По инструменту");
+                        System.out.println("4. По типу");
+                        System.out.println("5. По рейтингу");
                         System.out.println("0. Вернутся в меню");
                         System.out.print("Выбор: \n");
 
@@ -154,6 +162,18 @@ public class Main {
                                 break;
 
                             case 3:
+                                System.out.println("Введите инструмент:");
+                                String searchInstrument = scanner.nextLine();
+
+                                List<RepertoireItem> foundByInstrument = service.findByInstrument(searchInstrument);
+                                if (foundByInstrument.isEmpty()) {
+                                    System.out.println("Совпадений не найдено");
+                                } else {
+                                    printItems(foundByInstrument);
+                                }
+                                break;
+
+                            case 4:
                                 System.out.println("Введите тип:");
                                 String searchType = scanner.nextLine();
 
@@ -166,7 +186,7 @@ public class Main {
                                 }
                                 break;
 
-                            case 4:
+                            case 5:
                                 System.out.println("Введите рейтинг (от 1 до 10)");
                                 int searchRating = scanner.nextInt();
                                 scanner.nextLine();

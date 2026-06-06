@@ -31,6 +31,9 @@ public class RepertoireItem {
     public void setComposer(String composer) {
         this.composer = composer;
     }
+    public void setInstrument(String instrument) {
+        this.instrument = instrument;
+    }
     public void setType(String type) {
         this.type = type;
     }
