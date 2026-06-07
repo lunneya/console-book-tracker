@@ -16,6 +16,7 @@ public class Main {
         // Тестовый вызов метода для сохранения
         FileService fileService = new FileService();
         fileService.saveTest();
+        fileService.loadTest();
 
         while (true) {
             System.out.println("\n\n=== Репертуар музыканта ===\n");
