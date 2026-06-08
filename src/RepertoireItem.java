@@ -41,6 +41,19 @@ public class RepertoireItem {
         this.rating = rating;
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "[%d] | %s | %s | %s | %s | %d",
+                id,
+                title,
+                composer,
+                instrument,
+                type,
+                rating
+        );
+    }
+
     // Конструктор
     public RepertoireItem(int id, String title, String composer, String instrument, String type, int rating) {
         this.id = id;
