@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileService {
@@ -80,8 +81,30 @@ public class FileService {
 
     }
 
-    public void save() {
+    public void save(List<RepertoireItem> items) {
+        Path path = Path.of("repertoire.txt");
 
+        List<String> lines = new ArrayList<>();
+
+        for (RepertoireItem item : items) {
+            String line = String.format(
+                    "%d;%s;%s;%s;%s;%d",
+                    item.getId(),
+                    item.getTitle(),
+                    item.getComposer(),
+                    item.getInstrument(),
+                    item.getType(),
+                    item.getRating()
+            );
+            lines.add(line);
+        }
+
+        try {
+            Files.write(path, lines);
+            System.out.println("Файл успешно сохранен");
+        } catch (IOException e) {
+            System.out.println("Ошибка при сохранении файла");
+        }
     }
 
     public void load() {

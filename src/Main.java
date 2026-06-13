@@ -15,10 +15,11 @@ public class Main {
 
         // Тестовый вызов метода для сохранения
         FileService fileService = new FileService();
+        fileService.save(service.getAllItems());
 //        fileService.saveTest();
 //        fileService.loadTest();
-        fileService.saveOneItemTest();
-        fileService.loadOneItemTest();
+//        fileService.saveOneItemTest();
+//        fileService.loadOneItemTest();
 
         while (true) {
             System.out.println("\n\n=== Репертуар музыканта ===\n");
