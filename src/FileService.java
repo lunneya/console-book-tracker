@@ -6,6 +6,7 @@ import java.util.List;
 
 public class FileService {
 
+    // Учебный код
     public void saveTest() {
         Path path = Path.of("repertoire.txt");
 
@@ -16,7 +17,6 @@ public class FileService {
             System.out.println("Ошибка при сохранении файла");
         }
     }
-
 
     public void loadTest() {
         Path path = Path.of("repertoire.txt");
@@ -81,6 +81,7 @@ public class FileService {
 
     }
 
+    // Рабочий код
     public void save(List<RepertoireItem> items) {
         Path path = Path.of("repertoire.txt");
 
@@ -107,7 +108,33 @@ public class FileService {
         }
     }
 
-    public void load() {
+    public List<RepertoireItem> load() {
+        Path path = Path.of("repertoire.txt");
 
+        List<RepertoireItem> items = new ArrayList<>();
+
+        try {
+            List<String> lines = Files.readAllLines(path);
+
+            for (String line : lines) {
+                String[] parts = line.split(";");
+
+                RepertoireItem item = new RepertoireItem(
+                        Integer.parseInt(parts[0]),
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        parts[4],
+                        Integer.parseInt(parts[5])
+                );
+
+                items.add(item);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Ошибка при чтении файла");
+        }
+
+        return items;
     }
 }

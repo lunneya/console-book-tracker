@@ -12,14 +12,16 @@ public class Main {
         // Временные данные для тестов
         // Добавление item в service
         service.addItem("Bilewater","Christopher Larkin", "Piano", "GAME_SOUNDTRACK", 10);
+        service.addItem("Bilewater","Christopher Larkin", "Piano", "GAME_SOUNDTRACK", 10);
 
         // Тестовый вызов метода для сохранения
         FileService fileService = new FileService();
+
         fileService.save(service.getAllItems());
-//        fileService.saveTest();
-//        fileService.loadTest();
-//        fileService.saveOneItemTest();
-//        fileService.loadOneItemTest();
+
+        List<RepertoireItem> loadedItems = fileService.load();
+
+        printItems(loadedItems);
 
         while (true) {
             System.out.println("\n\n=== Репертуар музыканта ===\n");
