@@ -58,6 +58,20 @@ public class RepertoireService {
         return new ArrayList<>(items);
     }
 
+    public void setItems(List<RepertoireItem> items) {
+        this.items = items;
+
+        int maxId = 0;
+
+        for (RepertoireItem item : items) {
+            if (item.getId() > maxId) {
+                maxId = item.getId();
+            }
+        }
+
+        this.nextId = maxId + 1;
+    }
+
     public RepertoireItem findById(int searchId) {
         for (RepertoireItem item : items) {
             if (item.getId() == searchId) {

@@ -9,19 +9,12 @@ public class Main {
         // Создание объекта, который хранит список Item из ItemService.java
         RepertoireService service = new RepertoireService();
 
-        // Временные данные для тестов
-        // Добавление item в service
-        service.addItem("Bilewater","Christopher Larkin", "Piano", "GAME_SOUNDTRACK", 10);
-        service.addItem("Bilewater","Christopher Larkin", "Piano", "GAME_SOUNDTRACK", 10);
-
-        // Тестовый вызов метода для сохранения
+        // Загрузка данных из файла
         FileService fileService = new FileService();
-
-        fileService.save(service.getAllItems());
-
         List<RepertoireItem> loadedItems = fileService.load();
-
-        printItems(loadedItems);
+        if (loadedItems != null && !loadedItems.isEmpty()) {
+            service.setItems(loadedItems);
+        }
 
         while (true) {
             System.out.println("\n\n=== Репертуар музыканта ===\n");
@@ -67,6 +60,7 @@ public class Main {
                     }
 
                     service.addItem(title, composer, instrument, type, rating);
+                    fileService.save(service.getAllItems());
                     System.out.println("Запись добавлена");
                     break;
 
@@ -80,6 +74,7 @@ public class Main {
                     if (foundItem != null) {
                         System.out.printf("Удалена запись: %s", foundItem.getTitle());
                         service.deleteItem(id);
+                        fileService.save(service.getAllItems());
                     } else {
                         System.out.println("Запись не найдена");
                     }
@@ -110,6 +105,7 @@ public class Main {
 
                     if (updated) {
                         System.out.println("Запись обновлена");
+                        fileService.save(service.getAllItems());
                     } else {
                         System.out.println("ID не найден");
                     }
